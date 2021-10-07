@@ -99,6 +99,13 @@ class _HomePageState extends State<HomePage> {
             child: const Text('Sign Up'),
           ),
         ),
+        TextButton(
+          onPressed: null,
+        
+        
+        child: Text('Forgot your password?',
+        ),
+        ),
       ],
     );
   }
