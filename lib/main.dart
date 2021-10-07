@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         // appBar: AppBar(
         //   backgroundColor: Colors.white,
         //   title: Text(
@@ -36,136 +36,68 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 180),
-              color: Colors.green,
-              height: 280,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Back',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  Text(
-                    'Content',
-                    style: TextStyle(fontSize: 40, color: Colors.white),
-                  ),
-                  Text(
-                    'Filter',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ],
-              ),
+            Icon(
+              Icons.close_outlined,
             ),
-            Positioned(
-              top: 180,
-              child: CircleAvatar(
-                radius: 100,
-                backgroundImage: AssetImage('images/lash.jpg'),
+            Text(
+              'Sign Up',
+              style: TextStyle(fontSize: 40),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Login',
+                style: TextStyle(color: Colors.green),
               ),
             ),
           ],
         ),
         SizedBox(
-          height: 110,
+          height: 200,
         ),
-        Text(
-          'Victoria Robertson',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 40),
-        ),
-        Text(
-          'Flutter Developer',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          padding: EdgeInsets.fromLTRB(50, 10, 0, 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white,
-          ),
-          child: Text(
-            'Posts',
-            textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.green, fontSize: 18),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                labelText: 'Name'),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            Icons.flutter_dash_outlined,
-            color: Colors.white,
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                labelText: 'Email'),
           ),
-          title: Text(
-            'Posts',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                labelText: 'Password'),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: TextButton(
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.all(16.0),
+              primary: Colors.white,
+              backgroundColor: Color(0xff5DB075),
+              textStyle: const TextStyle(fontSize: 20),
             ),
+            onPressed: () {},
+            child: const Text('Sign Up'),
           ),
-          subtitle: Text(
-            'Hell want to use your yacht, and I dont want this thing smelling like fish.',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Divider(
-           color: Colors.white,
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.flutter_dash_outlined,
-            color: Colors.white,
-          ),
-          title: Text(
-            'Posts',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          subtitle: Text(
-            'Hell want to use your yacht, and I dont want this thing smelling like fish.',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Divider(
-          
-          color: Colors.white,
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.flutter_dash_outlined,
-            color: Colors.white,
-          ),
-          title: Text(
-            'Posts',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          subtitle: Text(
-            'Hell want to use your yacht, and I dont want this thing smelling like fish.',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Divider(
-          color: Colors.white,
         ),
       ],
     );
