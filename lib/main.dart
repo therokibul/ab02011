@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.teal),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         // backgroundColor: Colors.black,
@@ -47,7 +49,12 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 40),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => login_page()),
+                );
+              },
               child: Text(
                 'Login',
                 style: TextStyle(color: Colors.green),
@@ -101,10 +108,9 @@ class _HomePageState extends State<HomePage> {
         ),
         TextButton(
           onPressed: null,
-        
-        
-        child: Text('Forgot your password?',
-        ),
+          child: Text(
+            'Forgot your password?',
+          ),
         ),
       ],
     );
