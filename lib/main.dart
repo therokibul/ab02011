@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'search.dart';
+import 'blog_post.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.teal),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // backgroundColor: Colors.black,
+        backgroundColor: Colors.green,
         // appBar: AppBar(
         //   backgroundColor: Colors.white,
         //   title: Text(
@@ -36,83 +37,56 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(
-              Icons.close_outlined,
-            ),
-            Text(
-              'Sign Up',
-              style: TextStyle(fontSize: 40),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => login_page()),
-                );
-              },
-              child: Text(
-                'Login',
-                style: TextStyle(color: Colors.green),
+    return SafeArea(
+      child: Center(
+        child: Container(
+          // width: 400,
+          height: 400,
+          margin: EdgeInsets.all(25),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Congratulations!',
+                style: TextStyle(fontSize: 30),
               ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 200,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                labelText: 'Name'),
+              Text(
+                'Consequat velit qui adipisicing sunt do reprehenderit ad laborum tempor ullamco exercitation. Ullamco tempor adipisicing et voluptate duis sit esse aliqua esse ex dolore esse. Consequat velit qui adipisicing sunt.',
+                textAlign: TextAlign.center,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Search()));
+                },
+                child: Text(
+                  'Content',
+                  style: TextStyle(fontSize: 20),
+                ),
+                color: Colors.green,
+                textColor: Colors.white,
+                minWidth: 300,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => BlogPost()));
+                  },
+                  child: Text(
+                    'Secondary Action',
+                    style: TextStyle(color: Colors.green),
+                  ))
+            ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                labelText: 'Email'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                labelText: 'Password'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              primary: Colors.white,
-              backgroundColor: Color(0xff5DB075),
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-            onPressed: () {},
-            child: const Text('Sign Up'),
-          ),
-        ),
-        TextButton(
-          onPressed: null,
-          child: Text(
-            'Forgot your password?',
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
