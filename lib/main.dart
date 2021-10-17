@@ -21,6 +21,14 @@ class _MyAppState extends State<MyApp> {
     Icons.earbuds,
     Icons.tab,
     Icons.umbrella,
+    Icons.account_balance_wallet_rounded,
+    Icons.add_to_photos_rounded,
+    Icons.fast_forward,
+    Icons.fiber_new_outlined,
+    Icons.dangerous,
+    Icons.earbuds,
+    Icons.tab,
+    Icons.umbrella,
   ];
   Widget _buildIcon(int index) {
     return Container(
@@ -46,10 +54,10 @@ class _MyAppState extends State<MyApp> {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: GridView.builder(
-              scrollDirection: Axis.horizontal,
+              // scrollDirection: Axis.horizontal,
               itemCount: _icons.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 mainAxisSpacing: 5.0,
                 crossAxisSpacing: 5.0,
                 // mainAxisExtent: 100.0,
