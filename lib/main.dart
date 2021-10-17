@@ -1,89 +1,63 @@
 import 'package:flutter/material.dart';
-import 'search.dart';
-import 'blog_post.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<IconData> _icons = [
+    Icons.account_balance_wallet_rounded,
+    Icons.add_to_photos_rounded,
+    Icons.fast_forward,
+    Icons.fiber_new_outlined,
+    Icons.dangerous,
+    Icons.earbuds,
+    Icons.tab,
+    Icons.umbrella,
+  ];
+  Widget _buildIcon(int index) {
+    return Container(
+      height: 60.0,
+      width: 60.0,
+      decoration: BoxDecoration(
+        color: Colors.teal,
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Icon(
+        _icons[index],
+        size: 100.0,
+        color: Colors.white,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.teal),
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.green,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   title: Text(
-        //     'Layout',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        // ),
-        body: HomePage(),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Container(
-          // width: 400,
-          height: 400,
-          margin: EdgeInsets.all(25),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Congratulations!',
-                style: TextStyle(fontSize: 30),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GridView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: _icons.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 5.0,
+                crossAxisSpacing: 5.0,
+                // mainAxisExtent: 100.0,
               ),
-              Text(
-                'Consequat velit qui adipisicing sunt do reprehenderit ad laborum tempor ullamco exercitation. Ullamco tempor adipisicing et voluptate duis sit esse aliqua esse ex dolore esse. Consequat velit qui adipisicing sunt.',
-                textAlign: TextAlign.center,
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Search()));
-                },
-                child: Text(
-                  'Content',
-                  style: TextStyle(fontSize: 20),
-                ),
-                color: Colors.green,
-                textColor: Colors.white,
-                minWidth: 300,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BlogPost()));
-                  },
-                  child: Text(
-                    'Secondary Action',
-                    style: TextStyle(color: Colors.green),
-                  ))
-            ],
+              itemBuilder: (BuildContext context, int index) {
+                return _buildIcon(index);
+              },
+            ),
           ),
         ),
       ),
