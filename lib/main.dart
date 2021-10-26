@@ -5,7 +5,7 @@ import 'second_page.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -15,9 +15,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       initialRoute: "/",
       routes: {
-        "/": (context) => FirstPage(), 
+        "/": (context) => FirstPage(),
         MyRoute.firstPage: (contex) => FirstPage(),
         MyRoute.secondPage: (contex) => SecondPage(),
       },
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MyRoute{
+class MyRoute {
   static String firstPage = '/first';
   static String secondPage = '/second';
 }
