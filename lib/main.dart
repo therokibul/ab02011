@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'first_page.dart';
-import 'second_page.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,27 +14,78 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.white70,
-        fontFamily: 'IrishGrover',
-        primaryColor: Colors.purple,
-        textTheme: TextTheme(
-          headline1: TextStyle(fontSize: 40),
-          
-        )
-        
+        primarySwatch: Colors.purple,
       ),
-      initialRoute: "/",
-      routes: {
-        "/": (context) => FirstPage(),
-        MyRoute.firstPage: (contex) => FirstPage(),
-        MyRoute.secondPage: (contex) => SecondPage(),
-      },
+      title: 'SliverAppBar',
+      home: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              snap: true,
+              floating: true,
+              expandedHeight: 150,
+              
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text('Sliver AppBar'),
+                background: Image.asset(
+                  'assets/images/sh.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Container(
+                    color: index.isOdd ? Colors.white : Colors.grey,
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        '$index',
+                        textScaleFactor: 5,
+                      ),
+                    ),
+                  );
+                },
+                childCount: 25,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Text(
+                    'Title 1',
+                    textScaleFactor: 5,
+                  ),
+                  Text(
+                    'Title 2',
+                    textScaleFactor: 5,
+                  ),
+                  Text(
+                    'Title 3',
+                    textScaleFactor: 5,
+                  ),
+                ],
+              ),
+            ),
+            SliverGrid.count(
+              crossAxisCount: 3,
+              mainAxisSpacing: 20.0,
+              crossAxisSpacing: 20.0,
+              childAspectRatio: 3.0,
+              children: [
+                Container(color: Colors.red),
+                Container(color: Colors.blue),
+                Container(color: Colors.green),
+                Container(color: Colors.red),
+                Container(color: Colors.blue),
+                Container(color: Colors.green),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
-}
-
-class MyRoute {
-  static String firstPage = '/first';
-  static String secondPage = '/second';
 }
