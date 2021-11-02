@@ -9,82 +9,73 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+int _currentIndex = 0;
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      title: 'SliverAppBar',
-      home: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              snap: true,
-              floating: true,
-              expandedHeight: 150,
-              
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text('Sliver AppBar'),
-                background: Image.asset(
-                  'assets/images/sh.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Container(
-                    color: index.isOdd ? Colors.white : Colors.grey,
-                    height: 100,
-                    child: Center(
-                      child: Text(
-                        '$index',
-                        textScaleFactor: 5,
-                      ),
-                    ),
-                  );
-                },
-                childCount: 25,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Text(
-                    'Title 1',
-                    textScaleFactor: 5,
-                  ),
-                  Text(
-                    'Title 2',
-                    textScaleFactor: 5,
-                  ),
-                  Text(
-                    'Title 3',
-                    textScaleFactor: 5,
-                  ),
-                ],
-              ),
-            ),
-            SliverGrid.count(
-              crossAxisCount: 3,
-              mainAxisSpacing: 20.0,
-              crossAxisSpacing: 20.0,
-              childAspectRatio: 3.0,
-              children: [
-                Container(color: Colors.red),
-                Container(color: Colors.blue),
-                Container(color: Colors.green),
-                Container(color: Colors.red),
-                Container(color: Colors.blue),
-                Container(color: Colors.green),
-              ],
-            ),
-          ],
+    final _navBar = <Widget>[
+      const Center(
+        child: Icon(
+          Icons.home,
+          size: 100,
         ),
+      ),
+      const Center(
+        child: Icon(
+          Icons.print_outlined,
+          size: 60,
+        ),
+      ),
+      const Center(
+        child: Icon(
+          Icons.account_circle_outlined,
+          size: 60,
+        ),
+      ),
+    ];
+
+    final _NavBarItems = <BottomNavigationBarItem>[
+      const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          color: Colors.black,
+        ),
+        label: 'TaB1',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.print_outlined,
+          color: Colors.black,
+        ),
+        label: 'TaB2',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.account_circle_outlined,
+          color: Colors.black,
+        ),
+        label: 'TaB3',
+      ),
+    ];
+
+    assert(_navBar.length == _NavBarItems.length);
+
+    final bottomNavBar = BottomNavigationBar(
+      items: _NavBarItems,
+      currentIndex: _currentIndex,
+      type: BottomNavigationBarType.shifting,
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+    );
+
+    return MaterialApp(
+      home: Scaffold(
+        body: _navBar[_currentIndex],
+        bottomNavigationBar: bottomNavBar,
       ),
     );
   }
