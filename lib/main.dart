@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
 
+class MyApp extends StatefulWidget {
+  const MyApp({ Key? key }) : super(key: key);
+ 
   @override
   _MyAppState createState() => _MyAppState();
 }
-
-int _currentIndex = 0;
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    final _navBar = <Widget>[
+int _currentIndex= 0;
+ final _navBarBody = <Widget>[
       const Center(
         child: Icon(
           Icons.home,
@@ -34,9 +30,16 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     ];
-
-    final _NavBarItems = <BottomNavigationBarItem>[
-      const BottomNavigationBarItem(
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: _navBarBody[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          
+          items: [
+            const BottomNavigationBarItem(
         icon: Icon(
           Icons.home,
           color: Colors.black,
@@ -57,25 +60,17 @@ class _MyAppState extends State<MyApp> {
         ),
         label: 'TaB3',
       ),
-    ];
-
-    assert(_navBar.length == _NavBarItems.length);
-
-    final bottomNavBar = BottomNavigationBar(
-      items: _NavBarItems,
-      currentIndex: _currentIndex,
-      type: BottomNavigationBarType.shifting,
-      onTap: (int index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-    );
-
-    return MaterialApp(
-      home: Scaffold(
-        body: _navBar[_currentIndex],
-        bottomNavigationBar: bottomNavBar,
+          ],
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          onTap: (int index){
+            setState(() {
+              _currentIndex =index;
+            });
+          },
+          ),
+      
+      
       ),
     );
   }
