@@ -1,42 +1,36 @@
+import 'dart:js';
 
-import 'package:ab02011/screens/first.dart';
-import 'package:ab02011/screens/second.dart';
-import 'package:ab02011/screens/third.dart';
+import 'package:ab02011/desktopscreen.dart';
+import 'package:ab02011/moblescreen.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/home.dart';
 
 void main() => runApp(MyApp());
 
-
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-     
-        initialRoute: "/",
-        routes: {
-          "/": (contex) => Home(),
-          MyRoute.firstRoute: (contex) => First(),
-          MyRoute.secondRoute: (contex) => Second(),
-          MyRoute.thirdtRoute: (contex) => Third(),
-        });
+      home: Layout(),
+    );
   }
 }
 
+class Layout extends StatelessWidget {
+  const Layout({ Key? key }) : super(key: key);
 
-
-class MyRoute {
-  static String firstRoute = '/first';
-  static String secondRoute = '/second';
-  static String thirdtRoute = '/second';
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth < 600) {
+            return MobileScreen();
+          } else {
+            return DesktopScreen();
+          }
+        },
+      
+      );
+  }
 }
