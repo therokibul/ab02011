@@ -15,9 +15,24 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CustomButton(),
-            CustomButton(),
-            CustomButton(),
+            CustomButton(
+              routeName: () {
+                Navigator.pushNamed(context, MyRoute.firstRoute);
+              },
+              btnName: 'First',
+            ),
+            CustomButton(
+              routeName: () {
+                Navigator.pushNamed(context, MyRoute.secondRoute);
+              },
+              btnName: 'Second',
+            ),
+            CustomButton(
+              routeName: () {
+                Navigator.pushNamed(context, MyRoute.thirdtRoute);
+              },
+              btnName: 'Third',
+            ),
           ],
         ),
       ),
