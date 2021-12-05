@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,8 +28,50 @@ class _CalculatorState extends State<Calculator> {
   String equation = '0';
   String result = '0';
   String expresstion = '';
-  double equationFontSize = 40;
-  double resultFontSize = 42;
+  double equationFontSize = 50;
+  double resultFontSize = 40;
+
+  buttonOnPressed(String buttonText) {
+    setState(() {
+      if (buttonText == 'C') {
+        equationFontSize = 50;
+        resultFontSize = 40;
+        equation = '0';
+        result = '0';
+      } else if (buttonText == '←') {
+        equationFontSize = 50;
+        resultFontSize = 40;
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == '') {
+          equation = '0';
+        }
+      } else if (buttonText == '=') {
+        equationFontSize = 40;
+        resultFontSize = 50;
+        expresstion = equation;
+        expresstion = expresstion.replaceAll('÷', '/');
+        expresstion = expresstion.replaceAll('×', '*');
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expresstion);
+          ContextModel cm = ContextModel();
+
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+        } catch (e) {
+          result = 'Error';
+        }
+      } else {
+        equationFontSize = 50;
+        resultFontSize = 40;
+        if (equation == '0') {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+        }
+      }
+    });
+  }
 
   Widget buildButton(
     String buttonText,
@@ -41,7 +84,9 @@ class _CalculatorState extends State<Calculator> {
       decoration: BoxDecoration(
           color: buttonColor, borderRadius: BorderRadius.circular(24)),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          buttonOnPressed(buttonText);
+        },
         padding: EdgeInsets.all(16),
         child: Text(
           buttonText,
