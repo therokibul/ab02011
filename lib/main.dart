@@ -1,6 +1,6 @@
 import 'package:ab02011/pages/home.dart';
-import 'package:ab02011/pages/second.dart';
-import 'package:ab02011/pages/third.dart';
+import 'package:ab02011/pages/details.dart';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +19,10 @@ class MyApp extends StatelessWidget {
           page: () => Home(),
         ),
         GetPage(
-          name: "/second",
-          page: () => Second(),
+          name: "/details",
+          page: () => Details(),
         ),
-        GetPage(
-          name: "/third",
-          page: () => Third(),
-        ),
+       
       ],
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Second extends StatelessWidget {
-  const Second({Key? key}) : super(key: key);
+class Details extends StatelessWidget {
+  const Details({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,15 @@ class Second extends StatelessWidget {
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
+        title: Text(Get.arguments["covidData"]["country"]),
       ),
       body: Center(
-        child: Text(Get.arguments['data']),
+        child: Column(
+          children: [
+            Image.network(Get.arguments["covidData"]["countryInfo"]["flag"]),
+            Text(Get.arguments["covidData"]["country"]),
+          ],
+        ),
       ),
     );
   }
