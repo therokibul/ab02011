@@ -12,13 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       home: Home(),
-
       getPages: [
-        GetPage(name: "/home", page: ()=> Home()),
-        GetPage(name: "/second", page: ()=> Second()),
-        GetPage(name: "/third", page: ()=> Third()),
+        GetPage(
+          name: "/home",
+          page: () => Home(),
+        ),
+        GetPage(
+          name: "/second",
+          page: () => Second(),
+        ),
+        GetPage(
+          name: "/third",
+          page: () => Third(),
+        ),
       ],
     );
   }

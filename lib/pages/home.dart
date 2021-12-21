@@ -29,7 +29,6 @@ class _HomeState extends State<Home> {
                 Get.toNamed('/second',
                 arguments: {
                     'data' : data,
-                    
                 });
               },
               child: Text('Go to second Page'),
