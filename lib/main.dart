@@ -1,5 +1,4 @@
 import 'package:ab02011/pages/home.dart';
-import 'package:ab02011/pages/Second.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData.dark(),
       home: Home(),
-      
-     
     );
   }
 }
