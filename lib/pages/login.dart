@@ -1,83 +1,150 @@
-import 'dart:js';
 
-import 'package:ab02011/pages/home.dart';
 import 'package:ab02011/pages/navigation.dart';
-import 'package:ab02011/widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
-  final phoneControler = TextEditingController();
-  final otpControler = TextEditingController();
+enum MobileVarificationState {
+  SHOW_MOBILE_FORM_STATE,
+  SHOW_OTP_FORM_STATE,
+}
+
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  MobileVarificationState currentState =
+      MobileVarificationState.SHOW_MOBILE_FORM_STATE;
+  final phoneController = TextEditingController();
+  final otpController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  late String verificationId;
+
+  bool showLoading = false;
+
+  void singInWithPhoneAuthCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
+    setState(() {
+      showLoading = false;
+    });
+    try {
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      setState(() {
+        showLoading = true;
+      });
+      if (authCredential.user != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => NavBar()));
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        showLoading = false;
+      });
+      _scaffoldkey.currentState!
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
+    }
+  }
+
+  getMobileFormWidget(context) {
+    return Center(
+      child: Column(
+        children: [
+          TextField(
+            controller: phoneController,
+            decoration: InputDecoration(
+              hintText: 'Phone Number',
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              setState(() {
+                showLoading = true;
+              });
+              await _auth.verifyPhoneNumber(
+                phoneNumber: phoneController.text,
+                verificationCompleted: (phoneAuthCredential) async {
+                  setState(() {
+                    showLoading = false;
+                  });
+                  // singInWithPhoneAuthCredential(phoneAuthCredential);
+                },
+                verificationFailed: (verificationFailed) async {
+                  setState(() {
+                    showLoading = false;
+                  });
+                  _scaffoldkey.currentState!.showSnackBar(SnackBar(
+                      content: Text(verificationFailed.message.toString())));
+                },
+                codeSent: (verificarionId, resendingToken) async {
+                  setState(() {
+                    showLoading = false;
+                    currentState = MobileVarificationState.SHOW_OTP_FORM_STATE;
+                    this.verificationId = verificarionId;
+                  });
+                },
+                codeAutoRetrievalTimeout: (verificationID) async {},
+              );
+            },
+            child: Text('Send'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  getOtpFormWidget(context) {
+    return Column(
+      children: [
+        TextField(
+          controller: otpController,
+          decoration: InputDecoration(
+            hintText: 'Enter OTP',
+          ),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            PhoneAuthCredential phoneAuthCredential =
+                PhoneAuthProvider.credential(
+                    verificationId: verificationId,
+                    smsCode: otpController.text);
+            singInWithPhoneAuthCredential(phoneAuthCredential);
+          },
+          child: Text('Verify'),
+        ),
+      ],
+    );
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Sign With A Phone Number'),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  controller: phoneControler,
-                  decoration: InputDecoration(
-                      hintText: 'Enter Your Phone Number',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      prefixText: '+88'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Enter OTP'),
-                            actions: [
-                              TextField(
-                                controller: otpControler,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter OTP',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              MaterialButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NavBar()));
-                                },
-                                color: Colors.black,
-                                child: Text(
-                                  'SEND',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.black,
-                  child: Text(
-                    'VERIFy',
-                    style: TextStyle(color: Colors.white),
-                  ),
+      key: _scaffoldkey,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: showLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
                 )
-              ],
-            ),
-          ),
-        ));
+              : currentState == MobileVarificationState.SHOW_MOBILE_FORM_STATE
+                  ? getMobileFormWidget(context)
+                  : getOtpFormWidget(context),
+        ),
+      ),
+    );
   }
 }

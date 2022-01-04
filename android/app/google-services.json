@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "415374439322",
+    "project_id": "visiongallery-53ccb",
+    "storage_bucket": "visiongallery-53ccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415374439322:android:3ecb373eaff6d839888023",
+        "android_client_info": {
+          "package_name": "com.example.ab02011"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415374439322-1vo8issr6p42rkph707k6eob509iu7e3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCLgGjcNvyoh5mPNSENNL81zVqfkZEy1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415374439322-1vo8issr6p42rkph707k6eob509iu7e3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
