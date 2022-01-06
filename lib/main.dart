@@ -1,5 +1,5 @@
 import 'package:ab02011/pages/home.dart';
-import 'package:ab02011/pages/login.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: Home(),
     );
   }
 }
